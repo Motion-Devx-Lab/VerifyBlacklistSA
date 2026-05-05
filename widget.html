@@ -1,0 +1,17 @@
+<!-- SADeviceCheck Widget Fragment -->
+<div id="sdc-widget">
+    <input type="text" id="sdc-imei" placeholder="Verify IMEI...">
+    <button onclick="checkSDC()">Verify</button>
+    <div id="sdc-result"></div>
+</div>
+
+<script>
+async function checkSDC() {
+    const imei = document.getElementById('sdc-imei').value;
+    const res = await fetch('https://YOUR_PROJECT.supabase.co/rest/v1/public_imei_check?imei=eq.' + imei, {
+        headers: { 'apikey': 'YOUR_PUBLIC_KEY' }
+    });
+    const data = await res.json();
+    document.getElementById('sdc-result').innerText = data.length > 0 ? "⚠️ STOLEN" : "✅ CLEAR";
+}
+</script>

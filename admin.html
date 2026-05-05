@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADeviceCheck | Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        .admin-table th, .admin-table td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        .status-pending { color: orange; font-weight: bold; }
+        .status-verified { color: green; font-weight: bold; }
+        .btn-verify { background: #198754; color: white; padding: 5px 10px; cursor: pointer; border-radius: 4px; border: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Admin Management</h1>
+            <p>Verify SAPS Case Numbers & Update Registry</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Recent Submissions</h2>
+            <div id="adminFeedback" class="feedback hidden"></div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>IMEI</th>
+                        <th>SAPS Case</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    <!-- Data will load here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyBlacklistSA - Community Stolen Phone Registry</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="systemGlow" class="system-glow"></div>
+    
+    <!-- Static Background Layer -->
+    <div class="static-layer">
+        <header>
+            <div class="container">
+                <h1>VerifyBlacklistSA</h1>
+                <p>South Africa's Community Registry for Stolen Mobile Devices</p>
+                <p>Buying a used phone? Verify it's not stolen before you purchase</p>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="card search-section" onclick="openIMEICheck()">
+                <div class="card-header">
+                    <div class="card-content">
+                        <div class="toggle-content">
+                            <h2>Check a Device Before You Buy</h2>
+                        </div>
+                    </div>
+                    <div class="toggle-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card report-section" onclick="openStolenReport()">
+                <div class="card-header">
+                    <div class="card-content">
+                        <div class="toggle-content">
+                            <h2>Report a Stolen Device</h2>
+                            <p>Protect your identity and ruin the resale value. File a public report instantly.</p>
+                        </div>
+                    </div>
+                    <div class="toggle-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer-legal">
+            <div class="container">
+                <div class="legal-notice">
+                    <p><strong>POPIA Disclaimer:</strong> By submitting a report, you consent to the processing of this data for the purpose of recovering stolen property. <strong>VerifyBlacklistSA</strong> does not store full ID numbers and adheres to POPIA guidelines. All reports must be accompanied by a valid SAPS CAS number to prevent abuse and ensure data integrity.</p>
+                </div>
+                <hr class="footer-divider">
+                <p class="copyright">&copy; 2026 VerifyBlacklistSA | South Africa's Community Stolen Device Registry</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Overlay Container -->
+    <div id="overlayContainer" class="overlay-container">
+        <div class="overlay-backdrop" onclick="closeOverlay()"></div>
+        <div class="overlay-content">
+            <div class="overlay-header">
+                <h3 id="overlayTitle">Title</h3>
+                <button class="close-btn" onclick="closeOverlay()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div id="overlayBody" class="overlay-body">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("YOUR_PUBLIC_KEY"); // You get this from emailjs.com
+       })();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
