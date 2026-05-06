@@ -412,12 +412,21 @@ async function handleReport(event) {
             statusText: response.statusText
         });
 
-        if (response.ok) {
-            // Inside your .then() block after the Supabase POST
-            const feedback = document.getElementById('formFeedback');
-            if (feedback) {
-                feedback.innerHTML = "Successfully Reported!";
-                feedback.style.display = "block"; // Make sure it isn't hidden by CSS
+        if (response.status === 201 || response.ok) {
+            // 1. Show your working toast notification
+            showToast("Successfully Reported to VerifyBlacklistSA!");
+
+            // 2. Hide the Form Container
+            const formSection = document.getElementById('reportFormContainer'); 
+            if (formSection) formSection.style.display = 'none';
+
+            // 3. Show the Partner Success State
+            const successSection = document.getElementById('successState');
+            if (successSection) {
+                successSection.style.display = 'block';
+                
+                // Optional: Trigger a smooth scroll to the top of the new content
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } else {
             const errorData = await response.json();
