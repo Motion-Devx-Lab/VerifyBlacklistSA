@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VerifyBlacklistSA - Community Stolen Phone Registry</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="icon.png">
 </head>
 <body>
     <div id="systemGlow" class="system-glow"></div>
@@ -12,42 +13,25 @@
     <!-- Static Background Layer -->
     <div class="static-layer">
         <header>
-            <div class="container">
-                <h1>VerifyBlacklistSA</h1>
-                <p>South Africa's Community Registry for Stolen Mobile Devices</p>
-                <p>Buying a used phone? Verify it's not stolen before you purchase</p>
-            </div>
+            <h1>VerifyBlacklistSA</h1>
+            <p>South Africa's Community Registry for Stolen Mobile Devices</p>
+            <p>Buying a used phone? Verify it's not stolen before you purchase</p>
         </header>
 
-        <main class="container">
-            <section class="card search-section" onclick="openIMEICheck()">
-                <div class="card-header">
-                    <div class="card-content">
-                        <div class="toggle-content">
-                            <h2>Check a Device Before You Buy</h2>
-                        </div>
-                    </div>
-                    <div class="toggle-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </div>
+        <main class="app-container">
+            <section class="split-section" onclick="openIMEICheck()">
+                <div class="content-card">
+                    <h3>Check a Device Before You Buy</h3>
+                    <p>Verify it's not stolen before you purchase</p>
+                    <button onclick="openIMEICheck()">Start Search</button>
                 </div>
             </section>
 
-            <section class="card report-section" onclick="openStolenReport()">
-                <div class="card-header">
-                    <div class="card-content">
-                        <div class="toggle-content">
-                            <h2>Report a Stolen Device</h2>
-                            <p>Protect your identity and ruin the resale value. File a public report instantly.</p>
-                        </div>
-                    </div>
-                    <div class="toggle-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </div>
+            <section class="split-section" onclick="openStolenReport()">
+                <div class="content-card">
+                    <h3>Report a Stolen Device</h3>
+                    <p>Protect your identity and ruin the resale value</p>
+                    <button onclick="openStolenReport()">File Report</button>
                 </div>
             </section>
         </main>

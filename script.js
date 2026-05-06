@@ -46,7 +46,7 @@ function toggleSearchSection() {
 
 // 1. YOUR SUPABASE CONFIGURATION
 const SUPABASE_URL = "https://kmwqrivcwbnjszektpfv.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_ryWge16HjFSoFPo7nrBMQQ_CWaFDtMG";
+const supabaseKey = 'REPLACE_WITH_KEY';
 const API_URL = `${SUPABASE_URL}/rest/v1/stolen_devices`;
 const PUBLIC_API_URL = `${SUPABASE_URL}/rest/v1/public_imei_check`;
 
@@ -227,20 +227,11 @@ document.addEventListener('keydown', function(event) {
 // Landscape Detection and Fallback
 function detectLandscape() {
     const isLandscape = window.matchMedia('(orientation: landscape)').matches;
-    const isEdge = /Edge/.test(navigator.userAgent);
     
     if (isLandscape) {
-        document.body.classList.add('landscape-active');
-        console.log('Landscape mode detected');
+        console.log('🔄 Landscape mode activated');
     } else {
-        document.body.classList.remove('landscape-active');
-        console.log('Portrait mode detected');
-    }
-    
-    // Edge-specific fallback
-    if (isLandscape && isEdge) {
-        document.body.classList.add('landscape-active');
-        console.log('Edge landscape fallback applied');
+        console.log('📱 Portrait mode activated');
     }
 }
 
@@ -289,7 +280,7 @@ async function searchRegistry() {
 
     try {
         const response = await fetch(`${PUBLIC_API_URL}?imei=eq.${searchInput}`, {
-            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+            headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` }
         });
         const data = await response.json();
         console.log("Search result:", data);
