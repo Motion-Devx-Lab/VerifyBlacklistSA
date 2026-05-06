@@ -61,7 +61,41 @@
                 </button>
             </div>
             <div id="overlayBody" class="overlay-body">
-                <!-- Content will be injected here -->
+                <!-- Report Form Content -->
+                <div class="overlay-content">
+                    <div class="overlay-header">
+                        <h2>Report Stolen Device</h2>
+                        <button class="close-btn" onclick="closeOverlay()">&times;</button>
+                    </div>
+                    <form id="reportForm" onsubmit="handleReport(event)">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deviceMake">Device Make & Model</label>
+                            <input type="text" id="deviceMake" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deviceImei">IMEI Number</label>
+                            <input type="text" id="deviceImei" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sapsCase">SAPS Case Number</label>
+                            <input type="text" id="sapsCase">
+                        </div>
+                        <div class="form-group">
+                            <label for="itcNumber">ITC Number</label>
+                            <input type="text" id="itcNumber">
+                        </div>
+                        <button type="submit" class="btn-submit">Submit Report</button>
+                        <div id="formFeedback" class="feedback-message"></div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

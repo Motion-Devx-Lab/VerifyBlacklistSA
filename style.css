@@ -992,3 +992,59 @@ footer {
 .legal-notice strong {
     color: white;
 }
+
+/* The container that replaces the form */
+.success-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+    height: 100%;
+}
+
+.partner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns for Landscape */
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.partner-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: var(--primary);
+}
+
+.partner-logo {
+    height: 40px;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+/* Specific handling for Portrait (Mobile) */
+@media (orientation: portrait) {
+    .partner-grid {
+        grid-template-columns: 1fr; /* Stack them on mobile */
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

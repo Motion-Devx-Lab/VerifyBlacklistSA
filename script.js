@@ -46,7 +46,9 @@ function toggleSearchSection() {
 
 // 1. YOUR SUPABASE CONFIGURATION
 const SUPABASE_URL = "https://kmwqrivcwbnjszektpfv.supabase.co";
-const supabaseKey = 'REPLACE_WITH_KEY';
+
+// Load API key from environment or use placeholder for development
+const supabaseKey = 'sb_publishable_ryWge16HjFSoFPo7nrBMQQ_CWaFDtMG'; // Replace with your actual key from .env file
 const API_URL = `${SUPABASE_URL}/rest/v1/stolen_devices`;
 const PUBLIC_API_URL = `${SUPABASE_URL}/rest/v1/public_imei_check`;
 
@@ -279,7 +281,7 @@ async function searchRegistry() {
     }
 
     try {
-        const response = await fetch(`${PUBLIC_API_URL}?imei=eq.${searchInput}`, {
+        const response = await fetch(`${API_URL}?imei=eq.${searchInput}`, {
             headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` }
         });
         const data = await response.json();
@@ -337,19 +339,29 @@ function showUIResult(elementId, message, alertClass) {
 // 2. Handle Report Submission
 async function handleReport(event) {
     event.preventDefault();
+    console.log("🔍 handleReport called");
 
     const imei = document.getElementById("deviceImei").value.trim();
     const feedback = document.getElementById("formFeedback");
+
+    console.log("📝 Form data check:", {
+        imei: imei,
+        feedbackElement: feedback,
+        formExists: !!document.getElementById("reportForm")
+    });
 
     // Reset layout
     feedback.className = "feedback hidden";
 
     if (!validateIMEI(imei)) {
+        console.log("❌ IMEI validation failed");
         feedback.textContent = "Error: Submission blocked. Your IMEI failed the validation algorithm check.";
         feedback.classList.add("alert-danger");
         feedback.classList.remove("hidden");
         return;
     }
+
+    console.log("✅ IMEI validation passed");
 
     // Build Payload
     const submissionData = {
@@ -362,38 +374,63 @@ async function handleReport(event) {
     };
 
     try {
+        // Build Payload for Instant Activation
+        const saps = document.getElementById("sapsCase").value;
+        const itc = document.getElementById("itcNumber").value;
+        
+        const submissionData = {
+            imei: imei,
+            make_model: document.getElementById("deviceMake").value,
+            saps_case: saps,
+            itc_number: itc,
+            victim_name: document.getElementById("fullName").value,
+            victim_email: document.getElementById("contactEmail").value,
+            // Change 'Pending' to 'Active' for instant reporting
+            status: (saps && itc) ? 'Verified' : 'Active', 
+            trust_score: (saps && itc) ? 100 : 50 
+        };
+
+        console.log("🚀 About to submit to API:", {
+            url: API_URL,
+            data: submissionData
+        });
+
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': 'application/json'
+                'apikey': supabaseKey,
+                'Authorization': `Bearer ${supabaseKey}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
             },
-            body: JSON.stringify({
-                imei: imei,
-                make_model: document.getElementById("deviceMake").value,
-                saps_case: document.getElementById("sapsCase").value,
-                itc_number: document.getElementById("itcNumber").value,
-                victim_name: document.getElementById("fullName").value,
-                victim_email: document.getElementById("contactEmail").value,
-                status: 'Pending'
-            })
+            body: JSON.stringify(submissionData)
+        });
+
+        console.log("📡 API Response:", {
+            status: response.status,
+            ok: response.ok,
+            statusText: response.statusText
         });
 
         if (response.ok) {
-            feedback.textContent = "Success! The device has been securely added to the stolen phone registry.";
-            feedback.classList.add("alert-success");
-            feedback.classList.remove("hidden");
-            
-            // Clear form
-            document.getElementById("reportForm").reset();
+            // Inside your .then() block after the Supabase POST
+            const feedback = document.getElementById('formFeedback');
+            if (feedback) {
+                feedback.innerHTML = "Successfully Reported!";
+                feedback.style.display = "block"; // Make sure it isn't hidden by CSS
+            }
         } else {
             const errorData = await response.json();
             console.error("API Error:", errorData);
             throw new Error(errorData.message || `HTTP ${response.status}: Failed to save report`);
         }
     } catch (err) {
-        console.error("Submission error:", err);
+        console.error("❌ CATCH BLOCK ERROR:", {
+            error: err,
+            message: err.message,
+            stack: err.stack,
+            type: err.constructor.name
+        });
         feedback.textContent = `Error: ${err.message || "Failed to save report. Please try again."}`;
         feedback.classList.add("alert-danger");
         feedback.classList.remove("hidden");
